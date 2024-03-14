@@ -1,51 +1,53 @@
-
-
-export default function UserList(){
-    const borderStyle = {"border" : "1px solid black"};
-
-    return (
-        <>
-            <table style={borderStyle} className="mx-auto w-full max-w-screen-lg mt-5 mb-5">
-                <thead style={borderStyle}>
-                    <th style={borderStyle}>Name</th>
-                    <th style={borderStyle}>LastName</th>
-                    <th style={borderStyle}>Email</th>
-                    <th style={borderStyle}>Identification</th>
-                    <th style={borderStyle}>Avatar</th>
-                </thead>
-                <tbody>
-                    <tr style={borderStyle}>
-                        <td style={borderStyle}>Timo</td>
-                        <td style={borderStyle}>Boll</td>
-                        <td style={borderStyle}>timo@boll.com</td>
-                        <td style={borderStyle}>1234567</td>
-                        <td style={borderStyle}><img
-                        style={{
-                            "width" : 50,
-                            "height" : 50
-                        }}
-                        src="https://butterflyonline.com/wp-content/uploads/2015/01/bollwc1.jpg"
-                        alt="Timo boll Avatar"
-                        className="mx-auto"
-                        /></td>
-                    </tr>
-                    <tr>
-                        <td style={borderStyle}>Dimitrij</td>
-                        <td style={borderStyle}>Ovtcharov</td>
-                        <td style={borderStyle}>dima@ovtcharov.com</td>
-                        <td style={borderStyle}>12345678</td>
-                        <td style={borderStyle}><img
-                        style={{
-                            "width" : 50,
-                            "height" : 50
-                        }}
-                        src="https://pro.butterfly.tt/player-men/images/ovtcharov-detail.jpg"
-                        alt="Dimitrij Ovtcharov Avatar"
-                        className="mx-auto"
-                        /></td>
-                    </tr>
-                </tbody>
-            </table>
-        </>
-    );
+export default function UserList() {
+  return (
+    <>
+      <div className="overflow-x-auto flex-justify-center px-5 py-5">
+        <table className="table-auto divide-y border border-black w-full">
+          <thead>
+            <th className="px-6 py-3 bg-gray-400 text-center border border-black">Name</th>
+            <th className="px-6 py-3 bg-gray-400 text-center border border-black">LastName</th>
+            <th className="px-6 py-3 bg-gray-400 text-center border border-black"> Email</th>
+            <th className="px-6 py-3 bg-gray-400 text-center border border-black">Identification</th>
+            <th className="px-6 py-3 bg-gray-400 text-center border border-black">Avatar</th>
+          </thead>
+          <tbody>
+            <tr className="hover:bg-border indigo-800">
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black hover:text-lg">Timo</td>
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black">Boll</td>
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black">timo@boll.com</td>
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black">1234567</td>
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <img
+                  style={{
+                    width: 50,
+                    height: 50,
+                  }}
+                  src="https://butterflyonline.com/wp-content/uploads/2015/01/bollwc1.jpg"
+                  alt="Timo Boll Avatar"
+                  className="mx-auto transition-transform duration-150 transform hover:scale-110"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black">Dimitrij</td>
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black">Ovtcharov</td>
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black">dima@ovtcharov.com</td>
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black">12345678</td>
+              <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <img
+                  style={{
+                    width: 50,
+                    height: 50,
+                  }}
+                  src="https://pro.butterfly.tt/player-men/images/ovtcharov-detail.jpg"
+                  alt="Dimitrij Ovtcharov Avatar"
+                  className="mx-auto transition-transform duration-150 transform hover:scale-110"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
 }
