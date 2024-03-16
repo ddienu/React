@@ -14,11 +14,16 @@ export default function Header() {
             Usuarios
           </Link>
         </li>
+        <li>
+          <Link to={"/create-user"} className="hover:text-green-200 hover:font-bold">
+            Crear usuarios
+          </Link>
+        </li>
       </ul>
       <div className="relative flex rounded-full bg-gray-800 focus:outine-none focus:rin-2 px-5">
         <ul>
           <li>
-            <Link to={"/"} className="hover:text-green-200 hover:font-bold">
+            <Link to={"/login"} className="hover:text-green-200 hover:font-bold">
               Login
             </Link>
           </li>
