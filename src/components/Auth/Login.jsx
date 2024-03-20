@@ -10,7 +10,7 @@ export default function Login() {
         className="shadow appearance-none border rounded border w-80 focus:shadow-outline on"
         required
       ></input>
-      <div className="mb-4">
+      <div className="mb-4 py-3">
         <label className="block text-gray-700 font-bold mb-2">Password</label>
         <input
           type="password"

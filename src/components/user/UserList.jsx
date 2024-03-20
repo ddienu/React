@@ -1,9 +1,16 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-export default function UserList() {
-  /*Obtiene el estado de una variable*/
-  const users = useSelector((state) => state.users);
 
+import { Link } from "react-router-dom";
+import { useGetUsersQuery } from "../../features/api/apiSlice";
+export default function UserList() {
+  /*Obtiene el estado de una variable con Redux
+  const users = useSelector((state) => state.users);
+  */
+ const { data: users, isLoading, isError, error} = useGetUsersQuery();
+ console.log(users);
+ if( isLoading ) return <p>Cargando usuarios...</p>
+ else if(isError) return (<div>Error: {error.message} </div>)
+
+//  const users = data;
   return (
     <>
       <div className="overflow-x-auto flex-justify-center px-5 py-5">
@@ -41,7 +48,7 @@ export default function UserList() {
                   {user.email}
                 </td>
                 <td className="px-6 py-3 bg-gray-200 text-center border border-black">
-                  {user.id}
+                  {user.userId}
                 </td>
                 <td className="px-6 py-3 bg-gray-200 text-center border border-black">
                   <img

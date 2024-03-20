@@ -1,14 +1,16 @@
-import { useDispatch } from "react-redux";
+// // import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { addUser } from "../../features/userSlice";
+// // import { addUser } from "../../features/userSlice";
 import { useEffect } from "react";
+import { useCreateUserMutation } from "../../features/api/apiSlice";
 
 
 export default function UserForm() {
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate(); //==> Se instancia la variable de useNavigate.
   const params = useParams();//=Z Se instancia la variable para obtener los parametros por URL
+  const [createUser] = useCreateUserMutation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,10 +18,12 @@ export default function UserForm() {
       name : e.target.name.value,
       lastname : e.target.lastname.value,
       email : e.target.email.value,
-      id : e.target.identification.value,
+      userId : e.target.identification.value,
       password : e.target.password.value
     }
-    dispatch(addUser(newUser));
+    createUser(newUser);
+
+    // dispatch(addUser(newUser));
 
     navigate("/users");//==> Se redirecciona al path /users
   }

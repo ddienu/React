@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**Al usar RTK Redux Toolkit se elimina el users quemado y se usa la implementación para traer los usuarios desde la DB **/
 const users = [
   {
     "_id": "65d2e5fb5a70505fa529ac1d",
@@ -12,6 +13,7 @@ const users = [
   },
 ];
 
+/**Método para usar el createSlice de reduxToolkit */ 
 export const userSlice = createSlice({
     name : 'users',
     initialState : users,
