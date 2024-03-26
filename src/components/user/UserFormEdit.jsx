@@ -2,15 +2,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   useCreateUserMutation,
   useGetUserByIdQuery,
+  useUpdateAvatarMutation,
   useUpdateUserMutation,
 } from "../../features/api/apiSlice";
 import UserForm from "./UserForm";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 export default function UserFormEdit() {
   const navigate = useNavigate(); // Instanciamos la vaiable de useNavigate
   const params = useParams(); // Instanciamos la variable para obtener los parametros por URL
+  const [file, setFile] = useState(null);
   const [updateUser] = useUpdateUserMutation();
+  const [uploadAvatar] = useUpdateAvatarMutation();
+
+  const handleChangeAvatar = (e) => {
+    setFile(e.target.files);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +41,11 @@ export default function UserFormEdit() {
           text: response.data.message,
         });
       } else {
+        if(file){
+          const formData = new FormData();
+          formData.append("file", file[0]);
+          uploadAvatar({_id : params.userId, file: formData});
+        }
         Swal.fire({
           icon: "success",
           title: "Usuario actualizado correctamente",
@@ -73,5 +86,5 @@ export default function UserFormEdit() {
     );
   else if (isError) return <div>Error: {error.message} </div>;
 
-  return <UserForm props={{ handleSubmit: handleSubmit, onFileChange: onFileChange, user: user }} />;
+  return <UserForm props={{ handleSubmit: handleSubmit, handleChangeAvatar:handleChangeAvatar, user: user }} />;
 }

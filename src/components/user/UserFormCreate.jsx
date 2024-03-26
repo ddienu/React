@@ -1,12 +1,19 @@
 import { useNavigate } from 'react-router-dom'
-import { useCreateUserMutation } from '../../features/api/apiSlice';
+import { useCreateUserMutation, useUpdateAvatarMutation } from '../../features/api/apiSlice';
 import Swal from 'sweetalert2'
 import UserForm from './UserForm';
+import { useState } from 'react';
 
 export default function UserFormCreate(){
 
     const navigate = useNavigate(); // Instanciamos la variable de useNavigate
+    const [file, setFile] = useState(null);
     const [createUser] = useCreateUserMutation();
+    const [uploadAvatar] = useUpdateAvatarMutation();
+
+    const handleChangeAvatar = (e) => {
+      setFile(e.target.files);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,6 +24,7 @@ export default function UserFormCreate(){
           userId: e.target.identification.value,
           password: e.target.password.value,
         };
+        console.log(e.target.avatar.value);
         try {
           const response = await createUser(newUser);
           // console.log(response.data.status);
@@ -29,6 +37,12 @@ export default function UserFormCreate(){
               text: response.data.message,
             })
           } else {
+
+            if(file){
+              const formData = new FormData();
+              formData.append("file", file[0]);
+              uploadAvatar({_id : response.data._id, file: formData});
+            }
             Swal.fire({
               icon: "success",
               title: "Usuario creado correctamente",
@@ -43,6 +57,6 @@ export default function UserFormCreate(){
         }
       };
       return (
-        <UserForm props={{handleSubmit: handleSubmit, user:null}} />
+        <UserForm props={{handleSubmit: handleSubmit, handleChangeAvatar:handleChangeAvatar, user:null}} />
     );
 }

@@ -1,5 +1,5 @@
 export default function UserForm({ props }) {
-  const { handleSubmit, onFileChange, user } = props
+  const { handleSubmit, handleChangeAvatar, user } = props
 
   return (
     <div className="max-w-md mx-auto px-5 py-5">
@@ -94,7 +94,7 @@ export default function UserForm({ props }) {
               accept="image/png, image/jpeg"
               type="file"
               className="hidden"
-              onChange={onFileChange}
+              onChange={handleChangeAvatar}
             />
           </label>
         </div>

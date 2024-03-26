@@ -80,8 +80,8 @@ export default function UserList() {
                       width: 50,
                       height: 50,
                     }}
-                    src={user.avatar}
-                    alt="Timo Boll Avatar"
+                    src={`http://localhost:9090/${user.avatar}`}
+                    alt="User's avatar"
                     className="mx-auto transition-transform duration-150 transform hover:scale-110"
                   />
                 </td>
