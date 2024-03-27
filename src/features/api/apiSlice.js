@@ -1,14 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWQyZTVmYjVhNzA1MDVmYTUyOWFjMWQiLCJlbWFpbCI6InJvY2tkYW5AaG90bWFpbC5jb20iLCJpYXQiOjE3MTA5Njk2MzN9.mJy3lBAbAgnDAC1VDjnlhidbtVYynKe80oeK1LK3mEM";
+// const token =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjAyNjZhNWM1NDYyMGMxNmI1ZTdjZjQiLCJlbWFpbCI6InJvY2tkYW5uQGhvdG1haWwuY29tIiwiaWF0IjoxNzExNDkyMTQ2fQ.whG-1A5_cpVqMCb3f-spIES2gaN5w1HDq5HMyvTdT6M";
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:9090",
-    prepareHeaders: (headers) => {
-      headers.set("Authorization", `Bearer ${token}`);
+    prepareHeaders: (headers, {getState}) => {
+      // const localData = JSON.parse(localStorage.getItem("sessionData"));
+      // const token = localData.token;
+      const token = getState().auth.token;
+      console.log(token);
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
       return headers;
     },
   }),
@@ -25,7 +31,7 @@ export const apiSlice = createApi({
             : 0
         ), //=> Transforma y reordena
     }),
-    getUserById : builder.query({
+    getUserById: builder.query({
       query: (_id) => "/user/" + _id,
       providesTags: ["User"],
     }),
@@ -37,44 +43,45 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
-    updateUser : builder.mutation({
-      query:( user) => ({
-        url : `/user/${user._id}`,
-        method: 'PUT',
-        body: user
+    updateUser: builder.mutation({
+      query: (user) => ({
+        url: `/user/${user._id}`,
+        method: "PUT",
+        body: user,
       }),
-      invalidatesTags: ['Users', 'User']
+      invalidatesTags: ["Users", "User"],
     }),
-    removeUser : builder.mutation({
+    removeUser: builder.mutation({
       query: (_id) => ({
         url: `/user/${_id}`,
-        method: 'DELETE'
+        method: "DELETE",
       }),
-      invalidatesTags: ['Users']
+      invalidatesTags: ["Users"],
     }),
-    updateAvatar : builder.mutation({
+    updateAvatar: builder.mutation({
       query: (body) => ({
-        url : `/upload/${body._id}/user`,
-        method : 'POST',
-        body : body.file
+        url: `/upload/${body._id}/user`,
+        method: "POST",
+        body: body.file,
       }),
-      invalidateTags : ['Users']
+      invalidateTags: ["Users"],
     }),
     login: builder.mutation({
       query: (body) => ({
-        url: '/login',
-        method: 'POST',
-        body: body
-      })
-    })
+        url: "/login",
+        method: "POST",
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery, 
-               useGetUserByIdQuery, 
-               useCreateUserMutation, 
-               useUpdateUserMutation, 
-               useRemoveUserMutation,
-               useUpdateAvatarMutation,
-               useLoginMutation
-               } = apiSlice;
+export const {
+  useGetUsersQuery,
+  useGetUserByIdQuery,
+  useCreateUserMutation,
+  useUpdateUserMutation,
+  useRemoveUserMutation,
+  useUpdateAvatarMutation,
+  useLoginMutation,
+} = apiSlice;

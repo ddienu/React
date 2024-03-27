@@ -9,18 +9,34 @@ import Login from "./components/Auth/Login";
 import Welcome from "./components/welcome";
 import UserFormCreate from "./components/user/UserFormCreate";
 import UserFormEdit from "./components/user/UserFormEdit";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { loginSuccess } from "./features/authSlice";
+import PrivateRoute from "./components/PrivateRoute";
 
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const sessionData = localStorage.getItem('sessionData');
+    if(sessionData){
+      dispatch(loginSuccess(JSON.parse(sessionData)));
+    }
+  })
+
   return (
     <>
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Welcome />}></Route>
-          <Route path="/users" element={<UserList />}></Route>
+          /*Rutas Privadas*/
+          <Route path="/" element={<PrivateRoute Component={Welcome}/>}/>
+          <Route path="/users" element={<PrivateRoute Component={UserList}/>}/>
+          <Route path="/user/:userId" element={<PrivateRoute Component={UserFormEdit}/>}/>
+          /*Rutas publicas*/
           <Route path="/create-user" element={<UserFormCreate />}></Route>
-          <Route path="/user/:userId" element={<UserFormEdit />}></Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
       </BrowserRouter>

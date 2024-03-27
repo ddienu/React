@@ -1,11 +1,14 @@
 import Swal from "sweetalert2";
 import { useLoginMutation } from "../../features/api/apiSlice";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../features/authSlice";
 
 export default function Login() {
 
   const [login] = useLoginMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -15,6 +18,7 @@ export default function Login() {
         password: e.target.password.value,
       };
       const response = await login(user);
+      console.log(response);
       if(response.error && response.error.data.status == "error"){
         const Toast = Swal.mixin({
           toast: true,
@@ -32,8 +36,9 @@ export default function Login() {
           title: response.error.data.message
         });
       }
-      console.log(response.data.status)
-      if(response.data.status == "success"){
+      if(response.data && response.data.status == "success"){
+        localStorage.setItem('sessionData', JSON.stringify(response.data));
+        dispatch(loginSuccess(response.data));
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",
@@ -52,8 +57,6 @@ export default function Login() {
           navigate("/")
         })
       }
-      // console.log(response.error.data.status)
-      // // console.log(response);
     } catch (error) {
       console.log(error);
     }
