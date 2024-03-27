@@ -75,7 +75,8 @@ export default function Header() {
                   src={`http://localhost:9090/${user.avatar}`}
                   alt="Avatar"
                   className="rounded-full h-10 w-10 cursor-pointer"
-                  onClick={toggleMenu}
+                  // onClick={toggleMenu}
+                  onMouseOver={toggleMenu}
                 />
                 {isOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
