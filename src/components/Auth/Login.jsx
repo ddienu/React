@@ -72,6 +72,7 @@ export default function Login() {
           placeholder="email"
           className="shadow appearance-none border rounded border w-80 focus:shadow-outline on"
           required
+          autoComplete="off"
         ></input>
         <div className="mb-4 py-3">
           <label className="block text-gray-700 font-bold mb-2">Password</label>

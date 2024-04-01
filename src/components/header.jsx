@@ -67,6 +67,7 @@ export default function Header() {
           </li>
         </div>
       </ul>
+      {/*DropDown de usuario logueado*/}
       <div className="relative flex rounded-full bg-gray-800 focus:outine-none focus:rin-2 px-5">
           {isAuthenticated ? (
             <>
@@ -77,9 +78,10 @@ export default function Header() {
                   className="rounded-full h-10 w-10 cursor-pointer"
                   // onClick={toggleMenu}
                   onMouseOver={toggleMenu}
+                  // onMouse
                 />
                 {isOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1" onMouseLeave={toggleMenu}>
                     <p className="block px-4 py-2 text-sm text-red-400 font-bold">
                       {user.name} {user.lastname}
                     </p>
@@ -88,6 +90,11 @@ export default function Header() {
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:font-bold"
                     >
                       Profile
+                    </Link>
+                    <Link to={'/change-password'}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:font-bold"
+                    >
+                      Cambiar contraseña
                     </Link>
                     <a
                       onClick={handleLogout}
