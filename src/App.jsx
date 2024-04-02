@@ -13,6 +13,8 @@ import { useEffect } from "react";
 import { loginSuccess } from "./features/authSlice";
 import PrivateRoute from "./components/PrivateRoute";
 import ChangePassword from "./components/Auth/ChangePassword";
+import HouseForm from "./components/house/HouseForm";
+import HouseFormCreate from "./components/house/HouseFormCreate";
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
           <Route path="/users" element={<PrivateRoute Component={UserList}/>}/>
           <Route path="/user/:userId" element={<PrivateRoute Component={UserFormEdit}/>}/>
           <Route path="/change-password" element={<PrivateRoute Component={ChangePassword}/>}></Route>
+          <Route path="/create-house" element={<HouseFormCreate />}></Route>
           {/*Rutas publicas*/}
           <Route path="/create-user" element={<UserFormCreate />}></Route>
           <Route path="/login" element={<Login />}></Route>

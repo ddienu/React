@@ -1,20 +1,27 @@
-import { configureStore } from '@reduxjs/toolkit';
-import numberReducer from './features/numberSlice';
-import usersReducer from './features/userSlice';
-import authReducer from './features/authSlice';
-import { apiSlice } from './features/api/apiSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import numberReducer from "./features/numberSlice";
+import usersReducer from "./features/userSlice";
+import authReducer from "./features/authSlice";
+import { apiSlice } from "./features/api/apiSlice";
+import { apiHouseSlice } from "./features/api/apiHouseSlice";
+import { apiColombiaSlice } from "./features/api/apiColombiaSlice";
 
 /** Agrupamos los estados en una sola ubicacion */
 
 const store = configureStore({
-    reducer: {
-        number: numberReducer,
-        users : usersReducer,
-        auth: authReducer,
-        [apiSlice.reducerPath] : apiSlice.reducer,
-    },
-    middleware: (getDefaultMiddleware) => 
-    getDefaultMiddleware().concat(apiSlice.middleware),
-})
+  reducer: {
+    number: numberReducer,
+    users: usersReducer,
+    auth: authReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    [apiHouseSlice.reducerPath]: apiHouseSlice.reducer,
+    [apiColombiaSlice.reducerPath]: apiColombiaSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware()
+      .concat(apiSlice.middleware)
+      .concat(apiHouseSlice.middleware)
+      .concat(apiColombiaSlice.middleware),
+});
 
 export default store;
