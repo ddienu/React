@@ -19,19 +19,18 @@ export default function HouseFormCreate(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newHouse = {
-            address : e.target.value.address,
-            city : e.target.value.city, 
-            state : e.target.value.state,
-            size : e.target.value.size,
-            type : e.target.value.type,
-            zipCode : e.target.value.zipCode,
-            rooms : e.target.value.rooms,
-            bathrooms : e.target.value.bathrooms, 
-            parking : e.target.value.parking,
-            price : e.target.value.price,
-            code : e.target.value.code
-
+        const newHouse = await {
+            address : e.target.address.value,
+            city : e.target.city.value, 
+            state : e.target.state.value.split("-")[1],
+            size : e.target.size.value,
+            type : e.target.type.value,
+            zipCode : e.target.zipCode.value,
+            rooms : e.target.rooms.value,
+            bathrooms : e.target.bathrooms.value, 
+            parking : e.target.parking.value,
+            price : e.target.price.value,
+            code : e.target.code.value
         };
         console.log(newHouse);
         try {

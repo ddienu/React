@@ -22,8 +22,9 @@ export default function HouseForm({ props }) {
   const handleChangeDepartment = async (e) => {
     setCities([]); //=> Se limpia cualquier información que esté dentro de cities
     setSelectedDepartment(e.target.value);
+    console.log(e.target.value);
     if(e.target.value){
-        const response = await getCities(e.target.value);
+        const response = await getCities(e.target.value.split("-")[0]);
         setCities(response.data); //=> Llena la lista de ciudades
     }
   };
@@ -70,13 +71,13 @@ export default function HouseForm({ props }) {
           <select
             name="state"
             required
-            className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+            className="block py-2.5 px-0 w-full text-black bg-transparent border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
             onChange={handleChangeDepartment}
             defaultValue={selectedDeparment}
           >
             <option value="">Seleccione el departamento</option>
             {departments.map((department) => (
-              <option key={department.id} value={department.id}>
+              <option key={department.id} value={`${department.id}-${department.name}`}>
                 {department.name}
               </option>
             ))}
@@ -88,11 +89,11 @@ export default function HouseForm({ props }) {
           <select
             name="city"
             required
-            className="block mb-4 py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+            className="block mb-4 py-2.5 px-0 w-full text-bl bg-transparent border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
           >
             <option value="">Seleccione la ciudad</option>
             {cities.map((city) => (
-              <option key={city.id} value={city.id}>
+              <option key={city.id} value={city.name}>
                 {city.name}
               </option>
             ))}
