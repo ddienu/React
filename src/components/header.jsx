@@ -73,6 +73,14 @@ export default function Header() {
               Crear usuarios
             </Link>
           </li>
+          <li className="px-3">
+            <Link
+              to={"/chat"}
+              className="hover:text-green-200 hover:font-bold"
+            >
+              Chat
+            </Link>
+          </li>
         </div>
       </ul>
       {/*DropDown de usuario logueado*/}

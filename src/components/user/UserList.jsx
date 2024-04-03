@@ -37,7 +37,7 @@ export default function UserList() {
 //  const users = data;
   return (
     <>
-      <div className="overflow-x-auto flex-justify-center px-5 py-5">
+      <div className="overflow-x-auto flex-justify-center px-5 py-5 h-screen">
         <table className="table-auto divide-y border border-black w-full">
           <thead>
             <th className="px-6 py-3 bg-gray-400 text-center border border-black">
