@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useUpdateAvatarMutation } from '../../features/api/apiSlice';
 import Swal from 'sweetalert2'
-// import UserForm from './UserForm';
 import { useState } from 'react';
 import { useCreateHouseMutation } from '../../features/api/apiHouseSlice';
 import HouseForm from './HouseForm';
@@ -65,7 +64,7 @@ export default function HouseFormCreate(){
         }
       };
       return (
-        <HouseForm props={{handleSubmit: handleSubmit, house:null}} />
+        <HouseForm handleSubmit = {handleSubmit} house={null} />
         // handleChangeAvatar:handleChangeAvatar
     );
 }

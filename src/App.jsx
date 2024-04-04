@@ -5,7 +5,7 @@ import UserList from "./components/user/UserList";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Login from "./components/Auth/Login";
-import Welcome from "./components/welcome";
+import Welcome from "./components/Welcome";
 import UserFormCreate from "./components/user/UserFormCreate";
 import UserFormEdit from "./components/user/UserFormEdit";
 import { useDispatch } from "react-redux";
@@ -16,6 +16,8 @@ import ChangePassword from "./components/Auth/ChangePassword";
 import HouseForm from "./components/house/HouseForm";
 import HouseFormCreate from "./components/house/HouseFormCreate";
 import Chat from "./components/chat/Chat";
+import HouseList from "./components/house/HouseList";
+
 
 
 function App() {
@@ -42,10 +44,11 @@ function App() {
 
           {/* Rutas de casas */}
           <Route path="/create-house" element={<PrivateRoute Component={HouseFormCreate }/>}/>
+          <Route path="/houses" element={<PrivateRoute Component={HouseList}/>}/>
 
           {/* Rutas del chat */}
           <Route path="/chat" element={<PrivateRoute Component={Chat}/>}/>
-          
+
           {/*Rutas publicas*/}
           <Route path="/create-user" element={<UserFormCreate />}></Route>
           <Route path="/login" element={<Login />}></Route>

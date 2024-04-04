@@ -36,6 +36,7 @@ export default function Header() {
                 width: 60,
                 height: 60,
               }}
+              className="rounded-full"
             />
           </li>
         </div>
@@ -59,14 +60,6 @@ export default function Header() {
           )}
           <li className="px-3">
             <Link
-              to={"/create-house"}
-              className="hover:text-green-200 hover:font-bold"
-            >
-              Crear casas
-            </Link>
-          </li>
-          <li className="px-3">
-            <Link
               to={"/create-user"}
               className="hover:text-green-200 hover:font-bold"
             >
@@ -75,9 +68,23 @@ export default function Header() {
           </li>
           <li className="px-3">
             <Link
-              to={"/chat"}
+              to={"/houses"}
               className="hover:text-green-200 hover:font-bold"
             >
+              Casas
+            </Link>
+          </li>
+          <li className="px-3">
+            <Link
+              to={"/create-house"}
+              className="hover:text-green-200 hover:font-bold"
+            >
+              Crear casas
+            </Link>
+          </li>
+
+          <li className="px-3">
+            <Link to={"/chat"} className="hover:text-green-200 hover:font-bold">
               Chat
             </Link>
           </li>

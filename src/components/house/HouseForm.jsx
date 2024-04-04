@@ -4,8 +4,7 @@ import {
   useLazyGetCitiesByDepartmentQuery,
 } from "../../features/api/apiColombiaSlice";
 
-export default function HouseForm({ props }) {
-  const { handleSubmit, house } = props;
+export default function HouseForm({ handleSubmit, house }) {
 
   const {
     data: departments,

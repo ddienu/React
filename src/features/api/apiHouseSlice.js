@@ -16,14 +16,14 @@ export const apiHouseSlice = createApi({
     getHouses: builder.query({
       query: () => "/house",
       providesTags: ["Houses"], //=> Función que se ejecuta al hacer un llamado en conjunto con el invalidate
-      transformResponse: (response) =>
-        response.sort((a, b) =>
-          a.name[0].toUpperCase() < b.name[0].toUpperCase()
-            ? -1
-            : a.name[0].toUpperCase() > b.name[0].toUpperCase()
-            ? 1
-            : 0
-        ),
+      // transformResponse: (response) =>
+      //   response.sort((a, b) =>
+      //     a.name[0].toUpperCase() < b.name[0].toUpperCase()
+      //       ? -1
+      //       : a.name[0].toUpperCase() > b.name[0].toUpperCase()
+      //       ? 1
+      //       : 0
+      //   ),
     }),
     getHouseById: builder.query({
       query: (_id) => "/house/" + _id,

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import {
   apiMessageSlice,
@@ -6,22 +6,49 @@ import {
 } from "../../features/api/apiMessageSlice";
 import { useSelector } from "react-redux";
 export default function Chat() {
-  const { data: messages, isLoading, isError, Error } = useGetMessagesQuery();
+  const { data, isLoading, isError, Error } = useGetMessagesQuery();
   const user = useSelector((state) => state.auth.user);
+  const [messages, setMessage] = useState([]);
+
+  const socket = io("http://localhost:9090", {
+    transports: ["websocket"],
+  });
+
+  socket.on("connect", function (){
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.message.value);
+    const payload = {
+        "body" : e.target.message.value,
+        "from" : user._id,
+        "to" : user._id // !NOTE: Id del destintario, se debería obtener previamente.
+    }
 
+    // console.log(payload);
+
+    const data = JSON.stringify(payload);
+    socket.emit("message", data);
+    e.target.message.value = "";
   }
 
-  useEffect(() => {
-    const socket = io("http://localhost:9090", {
-      transports: ["websocket"],
-    });
-
-    socket.on("connect", function () {});
+  socket.on('message-receipt', function(data){
+    const newMessage = {
+        "id" : data._id,
+        "body" : data.body,
+        "from" : {_id : data.from},
+        "to" :{ _id : data.to},
+        "createdAt" : data.createdAt
+    }
+    setMessage([...messages, newMessage]) 
   });
+
+  useEffect(() => {
+    if(data){
+        setMessage(data);
+    }
+  }, [data]);
+
 
   if (isLoading)
     return (
@@ -47,8 +74,6 @@ export default function Chat() {
     );
   else if (isError) return <div>Error: {error.message} </div>;
 
-  //   console.log(messages);
-
   return (
     <body className="bg-gray-700">
       <div className=" max-w-5xl w-full mx-auto">
@@ -66,12 +91,9 @@ export default function Chat() {
                                 'bg-blue-300 self-start'} 
                                  text-gray-700 py-2 px-4 rounded-lg max-w-xs`}>
                         <p>{message.body}</p>
-                        <span className="text-xs text-gray-100 self-end">{message.createdAt}</span>
+                        <span className="text-xs text-gray-100 self-end">{message.createdAt.split("T")[0]}</span>
                     </div>
           ))}
-          <div className="bg-red-300 text-gray-700 py-2 px-6 mr-32 rounded-lg max-w-xs self-end">
-            <p>Como estás</p>
-          </div>
         </div>
         <br />
         <form onSubmit={handleSubmit} className="bg-gray-300 text-blue-400 p-4">
