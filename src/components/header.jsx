@@ -25,7 +25,8 @@ export default function Header() {
   };
 
   return (
-    <nav className="bg-gray-800 text-white py-5 flex justify-between items-center">
+ 
+    <nav className="bg-gray-700 text-white py-5 flex justify-between items-center">
       <ul className="flex px-8 space-x-5">
         <div>
           <li className="ml-auto">
@@ -36,7 +37,7 @@ export default function Header() {
                 width: 60,
                 height: 60,
               }}
-              className="rounded-full"
+              className="rounded-full h-10 w-10 shadow-2xl"
             />
           </li>
         </div>
@@ -44,14 +45,14 @@ export default function Header() {
           {!isAuthenticated ? null : (
             <>
               <li className="px-3">
-                <Link to={"/"} className="hover:text-green-200 hover:font-bold">
+                <Link to={"/"} className="border-b-2 border-transparent hover:border-green-200 hover:text-green-200">
                   Inicio
                 </Link>
               </li>
               <li className="px-3">
                 <Link
                   to={"/users"}
-                  className="hover:text-green-200 hover:font-bold"
+                  className="border-b-2 border-transparent hover:border-green-200 hover:text-green-200"
                 >
                   Usuarios
                 </Link>
@@ -61,15 +62,17 @@ export default function Header() {
           <li className="px-3">
             <Link
               to={"/create-user"}
-              className="hover:text-green-200 hover:font-bold"
+              className="border-b-2 border-transparent hover:border-green-200 hover:text-green-200"
             >
               Crear usuarios
             </Link>
           </li>
+          {!isAuthenticated ? null : (
+            <>
           <li className="px-3">
             <Link
               to={"/houses"}
-              className="hover:text-green-200 hover:font-bold"
+              className="border-b-2 border-transparent hover:border-green-200 hover:text-green-200"
             >
               Casas
             </Link>
@@ -77,26 +80,27 @@ export default function Header() {
           <li className="px-3">
             <Link
               to={"/create-house"}
-              className="hover:text-green-200 hover:font-bold"
+              className="border-b-2 border-transparent hover:border-green-200 hover:text-green-200"
             >
               Crear casas
             </Link>
           </li>
-
           <li className="px-3">
-            <Link to={"/chat"} className="hover:text-green-200 hover:font-bold">
+            <Link to={"/chat"} className="border-b-2 border-transparent hover:border-green-200 hover:text-green-200">
               Chat
             </Link>
           </li>
+          </>
+          )}
         </div>
       </ul>
       {/*DropDown de usuario logueado*/}
-      <div className="relative flex rounded-full bg-gray-800 focus:outine-none focus:rin-2 px-5">
+      <div className="relative flex rounded-full bg-gray-700 focus:outine-none focus:rin-2 px-5">
         {isAuthenticated ? (
           <>
             <div className="relative">
               <img
-                src={`http://localhost:9090/${user.avatar}`}
+                src={`https://restapinodejs.vercel.app/${user.avatar}`}
                 alt="Avatar"
                 className="rounded-full h-10 w-10 cursor-pointer"
                 // onClick={toggleMenu}
@@ -115,7 +119,7 @@ export default function Header() {
                     to={`/user/${user._id}`}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:font-bold"
                   >
-                    Profile
+                    Perfil
                   </Link>
                   <Link
                     to={"/change-password"}
@@ -127,7 +131,7 @@ export default function Header() {
                     onClick={handleLogout}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer hover:font-bold"
                   >
-                    Logout
+                    Cerrar sesión
                   </a>
                 </div>
               )}
@@ -136,7 +140,7 @@ export default function Header() {
         ) : (
           <button
             onClick={handleLogout}
-            className="hover:text-green-200 hover:font-bold"
+            className="border-b-2 border-transparent hover:border-green-200 hover:text-green-200"
           >
             Login
           </button>

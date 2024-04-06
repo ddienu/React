@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="bg-gray-800  shadow-lg shadow-orange-500/100 text-white py-5 w-100 bottom-0 w-full">
+    <div className="bg-gray-700 text-white py-5 w-100 xl:mb-auto">
       <p>
         <span className="text-green-200"><strong>Desarrollador: </strong></span>
         <span>Diego Núñez</span>
@@ -26,7 +26,7 @@ export default function Footer() {
         </a>
       </div>
       <p>Talento Tech <strong>&#169;</strong></p>
-      <p className="text-green-200">2024</p>
+      <p className="text-green-200 font-bold">2024</p>
     </div>
   );
 }

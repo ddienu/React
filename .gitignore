@@ -25,3 +25,5 @@ dist-ssr
 
 InitialAppJsxBackup.txt
 assets
+
+.vercel

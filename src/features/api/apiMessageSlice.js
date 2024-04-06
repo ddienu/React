@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiMessageSlice = createApi({
     reducerPath: "apiMensaje",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:9090"
+        baseUrl: "https://restapinodejs.vercel.app"
     }),
     endpoints: (builder) => ({
         getMessages: builder.query({

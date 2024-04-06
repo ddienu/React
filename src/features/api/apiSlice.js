@@ -6,7 +6,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:9090",
+    baseUrl: "https://restapinodejs.vercel.app",
     prepareHeaders: (headers, {getState}) => {
       // const localData = JSON.parse(localStorage.getItem("sessionData"));
       // const token = localData.token;

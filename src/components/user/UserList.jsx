@@ -38,54 +38,54 @@ export default function UserList() {
   return (
     <>
       <div className="overflow-x-auto flex-justify-center px-5 py-5 h-screen">
-        <table className="table-auto divide-y border border-black w-full">
-          <thead>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+        <table className="table-auto divide-y w-full">
+          <thead className="bg-gray-800 text-white">
+            <th className="px-6 py-3 text-center ">
               Name
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center ">
               LastName
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center ">
               Email
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center ">
               Identification
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center ">
               Avatar
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center ">
               Actions
             </th>
           </thead>
-          <tbody>
+          <tbody className="bg-white divide-y divide-white border-t">
             {users.map((user) => (
               <tr className="hover:bg-border indigo-800" key={user._id}>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {user.name}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {user.lastname}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {user.email}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {user.userId}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   <img
                     style={{
                       width: 50,
                       height: 50,
                     }}
-                    src={`http://localhost:9090/${user.avatar}`}
+                    src={`https://restapinodejs.vercel.app/${user.avatar}`}
                     alt="User's avatar"
                     className="mx-auto transition-transform duration-150 transform hover:scale-110"
                   />
                 </td>
-                <td className="py-3 bg-gray-200 text-center border border-black">
+                <td className="py-3 bg-gray-200 text-center">
                   <div className="inline-flex rounded-md" role="group">
                     {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px- rounded-full w-20">
                       <Link to={`/user/${user._id}`}>Edit</Link>

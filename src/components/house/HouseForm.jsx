@@ -53,6 +53,7 @@ export default function HouseForm({ handleSubmit, house }) {
   else if (isError) return <div>Error: {error.message} </div>;
 
   return (
+    <body className="mb-32">
     <div className="max-w-md mx-auto px-5 py-5">
       <form onSubmit={handleSubmit} className="">
         <div className="mb-4">
@@ -190,6 +191,7 @@ export default function HouseForm({ handleSubmit, house }) {
         </div>
       </form>
     </div>
+    </body>
   );
 }
 

@@ -1,13 +1,10 @@
-import logo from "../assets/DNNSoftwareLogo.png";
+import logo from "../assets/DNNSoftwareLogo-NoBg.png";
 export default function Welcome() {
   return (
-    <body className="flex flex-col min-h-screen m-0 p-0">
-      <div className="flex flex-grow justify-center items-center">
-        <div className="text-center">
-          <img src={logo} className="2xl:py-30 xl:py-28 lg: py-12 rounded-full" />
-        </div>
+    <body className="bg-gradient-to-r from-gray-400 to-gray-50">
+      <div className="flex justify-center h-screen">
+        <img src={logo} className="mt-20 mb-16 rounded-xl" />
       </div>
     </body>
   );
 }
-

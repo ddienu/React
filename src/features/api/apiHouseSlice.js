@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiHouseSlice = createApi({
   reducerPath: "houseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:9090",
+    baseUrl: "https://restapinodejs.vercel.app",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {

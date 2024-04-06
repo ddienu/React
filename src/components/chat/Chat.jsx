@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import {
   apiMessageSlice,
@@ -6,6 +6,7 @@ import {
 } from "../../features/api/apiMessageSlice";
 import { useSelector } from "react-redux";
 export default function Chat() {
+  const inputRef = useRef(null);
   const { data, isLoading, isError, Error } = useGetMessagesQuery();
   const user = useSelector((state) => state.auth.user);
   const [messages, setMessage] = useState([]);
@@ -14,41 +15,48 @@ export default function Chat() {
     transports: ["websocket"],
   });
 
-  socket.on("connect", function (){
-  });
+  socket.on("connect", function () {});
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
-        "body" : e.target.message.value,
-        "from" : user._id,
-        "to" : user._id // !NOTE: Id del destintario, se debería obtener previamente.
-    }
+      body: e.target.message.value,
+      from: user._id,
+      to: user._id, // !NOTE: Id del destintario, se debería obtener previamente.
+    };
 
     // console.log(payload);
 
     const data = JSON.stringify(payload);
     socket.emit("message", data);
     e.target.message.value = "";
-  }
+  };
 
-  socket.on('message-receipt', function(data){
+  socket.on("message-receipt", function (data) {
     const newMessage = {
-        "id" : data._id,
-        "body" : data.body,
-        "from" : {_id : data.from},
-        "to" :{ _id : data.to},
-        "createdAt" : data.createdAt
-    }
-    setMessage([...messages, newMessage]) 
+      id: data._id,
+      body: data.body,
+      from: { _id: data.from },
+      to: { _id: data.to },
+      createdAt: data.createdAt,
+    };
+    setMessage([...messages, newMessage]);
   });
 
   useEffect(() => {
-    if(data){
-        setMessage(data);
+    if (data) {
+      setMessage(data);
     }
   }, [data]);
 
+  useEffect(() => {
+    // Si hay un input con autofocus, desplázate hasta ese elemento al cargar la página
+    if (inputRef.current) {
+      setTimeout(() => {
+        inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 0);
+    }
+  }, []);
 
   if (isLoading)
     return (
@@ -75,7 +83,7 @@ export default function Chat() {
   else if (isError) return <div>Error: {error.message} </div>;
 
   return (
-    <body className="bg-gray-700">
+    <body className="bg-gray-600">
       <div className=" max-w-5xl w-full mx-auto">
         <div className="bg-green-300 text-gray-800 p-4">
           <h1 className="text-lg font-semibold">Chat</h1>
@@ -83,28 +91,42 @@ export default function Chat() {
         <br />
         {/* Seccion de mensajes */}
         <div className="flex flex-col space-y-2">
-          {messages.map(message => (
-            <div key={message._id} 
-                        className={
-                            `${(message.from && user._id == message.from._id) ? 
-                                'bg-pink-300 self-end' : 
-                                'bg-blue-300 self-start'} 
-                                 text-gray-700 py-2 px-4 rounded-lg max-w-xs`}>
-                        <p>{message.body}</p>
-                        <span className="text-xs text-gray-100 self-end">{message.createdAt.split("T")[0]}</span>
-                    </div>
+          {messages.map((message) => (
+            <div
+              key={message._id}
+              className={`${
+                message.from && user._id == message.from._id
+                  ? "bg-pink-300 self-end"
+                  : "bg-blue-300 self-start"
+              } 
+                                 text-gray-700 py-2 px-4 rounded-lg max-w-xs`}
+            >
+              <p>{message.body}</p>
+              <span className="text-xs text-gray-100 self-end">
+                {message.createdAt.split("T")[0]}
+              </span>
+            </div>
           ))}
         </div>
         <br />
-        <form onSubmit={handleSubmit} className="bg-gray-300 text-blue-400 p-4">
+        <form onSubmit={handleSubmit} className="bg-gray-300 text-blue-400 p-4 flex">
           <input
             name="message"
             type="text"
+            ref={inputRef}
             className="w-full bg-gray-100 rounded-lg py-2 px-4"
             placeholder="Escribir mensaje..."
+            autoFocus
           />
-          <button className="bg-red-500 mx-2 rounded-lg p-2 mt-2 text-yellow-400 self-end">
-            Enviar
+          <button className="flex bg-gray-800 mx-2 rounded-lg p-2 mt-2 text-yellow-400 mb-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="rgb(52, 211, 153)"
+              class="w-6 h-6"
+            >
+              <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+            </svg>
           </button>
         </form>
       </div>

@@ -4,17 +4,29 @@ import { useLoginMutation, useUpdateUserMutation } from "../../features/api/apiS
 import { useSelector } from "react-redux";
 
 export default function ChangePassword() {
+  let actualVsNewPassword = false;
+  const [actualPassword, setActualPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [passwordsAreEquals, setPasswordsAreEquals] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  const getActualPassword = (e) => {
+    setActualPassword(e.target.value);
+  } 
   const handleChangeNewPassword = (e) => {
     setNewPassword(e.target.value);
   };
 
   const handleConfirmNewPassword = (e) => {
     setPasswordsAreEquals(!(newPassword === e.target.value));
+    s
   };
+
+  if( actualPassword === newPassword ){
+    actualVsNewPassword = true;
+  }
+
+  console.log(actualVsNewPassword);
 
   const user = useSelector((state) => state.auth.user);
   const [login] = useLoginMutation();
@@ -85,11 +97,17 @@ export default function ChangePassword() {
             <label className="block text-gray-700 font-bold mb-2">
               Contraseña actual:
             </label>
+            {actualVsNewPassword ? (
+              <span className="block text-red-400 font-bold">
+                Las nueva contraseña no puede ser igual a la anterior
+              </span>
+            ) : null}
             <input
               type="password"
               name="password"
               placeholder="contraseña"
               className="shadow appearance-none border rounded w-80 focus:shadow-outline"
+              onChange={getActualPassword}
               required
             ></input>
             <div className="py-2"></div>
@@ -120,9 +138,7 @@ export default function ChangePassword() {
               <span className="block text-red-400 font-bold">
                 Las contraseña no coinciden
               </span>
-            ) : <span className="block text-green-400 font-bold">
-            Las contraseñas coinciden
-          </span>}
+            ) : null}
             <div className="py-2"></div>
             <button
               type="submit"

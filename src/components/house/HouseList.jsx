@@ -40,85 +40,85 @@ export default function HouseList() {
   return (
     <>
       <div className="overflow-x-auto flex-justify-center px-5 py-5 h-screen">
-        <table className="table-auto divide-y border border-black w-full">
-          <thead>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+        <table className="table-auto divide-y border w-full">
+          <thead className="bg-gray-800 text-white">
+            <th className="px-6 py-3 text-center">
                 Address
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 City
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 State
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 Size
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 Type
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 ZipCode
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 Rooms
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 Bathrooms
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 Parking
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 Price
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 Code
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 Image
             </th>
-            <th className="px-6 py-3 bg-gray-400 text-center border border-black">
+            <th className="px-6 py-3 text-center">
                 Actions
             </th>
           </thead>
-          <tbody>
+          <tbody className="bg-white divide-y divide-white border-t"> 
             {houses.map(house => (
-              <tr className="hover:bg-border indigo-800" key={house._id}>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+              <tr className="" key={house._id}>
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house.address}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house.city}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house.state}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house.size}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house.type}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house.zipCode}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-centeblack">
                   {house.rooms}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house.bathrooms}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                     {house.parking === true ? "Yes" : "No"}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house.price}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house.code}
                 </td>
-                <td className="px-6 py-3 bg-gray-200 text-center border border-black">
+                <td className="px-6 py-3 bg-gray-200 text-center">
                   {house?.image}
                 </td>
                 {/* <td className="px-6 py-3 bg-gray-200 text-center border border-black">
@@ -132,7 +132,7 @@ export default function HouseList() {
                     className="mx-auto transition-transform duration-150 transform hover:scale-110"
                   />
                 </td> */}
-                <td className="py-3 bg-gray-200 text-center border border-black">
+                <td className="py-3 bg-gray-200 text-center">
                   <div className="inline-flex rounded-md" role="group">
                     {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px- rounded-full w-20">
                       <Link to={`/user/${user._id}`}>Edit</Link>
