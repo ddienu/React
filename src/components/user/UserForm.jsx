@@ -101,7 +101,7 @@ export default function UserForm({ props }) {
         <div className="py-4">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 rounded text-blue-50 font-bold py-2 px-4"
+            className="bg-gray-700 hover:bg-gray-800 hover:text-green-200 rounded text-blue-100 font-bold py-2 px-4"
           >
             Save
           </button>

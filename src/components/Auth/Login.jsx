@@ -3,11 +3,19 @@ import { useLoginMutation } from "../../features/api/apiSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../features/authSlice";
+import { useEffect } from "react";
 
 export default function Login() {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const sessionData = localStorage.getItem('sessionData');
+    if(sessionData){
+      navigate("/");
+    }
+  })
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -92,7 +100,7 @@ export default function Login() {
             <div className="py-2"></div>
             <button
               type="submit"
-              className="bg-gray-700 hover:bg-gray-800 rounded text-blue-100 font-bold py-2 px-4"
+              className="bg-gray-700 hover:bg-gray-800 hover:text-green-200 rounded text-blue-100 font-bold py-2 px-4"
             >
               Login
             </button>

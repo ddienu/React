@@ -4,7 +4,9 @@ import {
   useLazyGetCitiesByDepartmentQuery,
 } from "../../features/api/apiColombiaSlice";
 
-export default function HouseForm({ handleSubmit, house }) {
+export default function HouseForm( props ) {
+
+  const { handleSubmit, handleChangeImage, house } = props;
 
   const {
     data: departments,
@@ -21,10 +23,9 @@ export default function HouseForm({ handleSubmit, house }) {
   const handleChangeDepartment = async (e) => {
     setCities([]); //=> Se limpia cualquier información que esté dentro de cities
     setSelectedDepartment(e.target.value);
-    console.log(e.target.value);
-    if(e.target.value){
-        const response = await getCities(e.target.value.split("-")[0]);
-        setCities(response.data); //=> Llena la lista de ciudades
+    if (e.target.value) {
+      const response = await getCities(e.target.value.split("-")[0]);
+      setCities(response.data); //=> Llena la lista de ciudades
     }
   };
 
@@ -53,144 +54,193 @@ export default function HouseForm({ handleSubmit, house }) {
   else if (isError) return <div>Error: {error.message} </div>;
 
   return (
-    <body className="mb-32">
-    <div className="max-w-md mx-auto px-5 py-5">
-      <form onSubmit={handleSubmit} className="">
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Address</label>
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            className="shadow appearance-none border rounded w-full focus:shadow-outline"
-            defaultValue={house?.address}
-          ></input>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">State</label>
-          <select
-            name="state"
-            required
-            className="block py-2.5 px-0 w-full text-black bg-transparent border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-            onChange={handleChangeDepartment}
-            defaultValue={selectedDeparment}
+    <body className="mb-5">
+      <div className="max-w-md mx-auto px-5 py-5">
+        <form onSubmit={handleSubmit} className="">
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              Address
+            </label>
+            <input
+              type="text"
+              name="address"
+              placeholder="Address"
+              className="shadow appearance-none border rounded w-full focus:shadow-outline"
+              defaultValue={house?.address}
+            ></input>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">State</label>
+            <select
+              name="state"
+              required
+              className="block py-2.5 px-0 w-full text-black bg-transparent border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+              onChange={handleChangeDepartment}
+              defaultValue={selectedDeparment}
+            >
+              <option value="">Seleccione el departamento</option>
+              {departments.map((department) => (
+                <option
+                  key={department.id}
+                  value={`${department.id}-${department.name}`}
+                >
+                  {department.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          {cities.length == 0 ? null : (
+            <div>
+              <label className="block text-gray-700 font-bold mb-4">City</label>
+              <select
+                name="city"
+                required
+                className="block mb-4 py-2.5 px-0 w-full text-bl bg-transparent border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+              >
+                <option value="">Seleccione la ciudad</option>
+                {cities.map((city) => (
+                  <option key={city.id} value={city.name}>
+                    {city.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">Size</label>
+            <input
+              type="number"
+              name="size"
+              placeholder="Size"
+              className="shadow appearance-none border rounded w-full focus:shadow-outline"
+              defaultValue={house?.size}
+            ></input>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">Type</label>
+            <input
+              type="string"
+              name="type"
+              placeholder="Type"
+              className="shadow appearance-none border rounded w-full focus:shadow-outline"
+              defaultValue={house?.type}
+            ></input>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              ZipCode
+            </label>
+            <input
+              type="string"
+              name="zipCode"
+              placeholder="ZipCode"
+              className="shadow appearance-none border rounded w-full focus:shadow-outline"
+              defaultValue={house?.zipCode}
+            ></input>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">Rooms</label>
+            <input
+              type="number"
+              name="rooms"
+              placeholder="Rooms"
+              className="shadow appearance-none border rounded w-full focus:shadow-outline"
+              defaultValue={house?.rooms}
+            ></input>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              Bathrooms
+            </label>
+            <input
+              type="number"
+              name="bathrooms"
+              placeholder="Bathrooms"
+              className="shadow appearance-none border rounded w-full focus:shadow-outline"
+              defaultValue={house?.bathrooms}
+            ></input>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">
+              Parking
+            </label>
+            <div className>
+            <select
+              name="parking"
+              className="block py-2.5 px-0 w-full text-black bg-transparent border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer text-center"
+              defaultValue={house?.parking}
+            >
+              <option value={house?.parking}>Yes</option>
+              <option value={house?.parking}>No</option>
+            </select>
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">Price</label>
+            <input
+              type="number"
+              name="price"
+              placeholder="Price"
+              className="shadow appearance-none border rounded w-full focus:shadow-outline"
+              defaultValue={house?.price}
+            ></input>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-bold mb-2">Code</label>
+            <input
+              type="string"
+              name="code"
+              placeholder="Code"
+              className="shadow appearance-none border rounded w-full focus:shadow-outline"
+              defaultValue={house?.code}
+            ></input>
+          </div>
+          <div className="flex items-center justify-center w-full">
+          <label
+            htmlFor="image"
+            className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
           >
-            <option value="">Seleccione el departamento</option>
-            {departments.map((department) => (
-              <option key={department.id} value={`${department.id}-${department.name}`}>
-                {department.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        {cities.length == 0 ? null : 
-        (<div>
-          <label className="block text-gray-700 font-bold mb-4">City</label>
-          <select
-            name="city"
-            required
-            className="block mb-4 py-2.5 px-0 w-full text-bl bg-transparent border-0 border-b-2 border-gray-200 dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-          >
-            <option value="">Seleccione la ciudad</option>
-            {cities.map((city) => (
-              <option key={city.id} value={city.name}>
-                {city.name}
-              </option>
-            ))}
-          </select>
-        </div>)}
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Size</label>
-          <input
-            type="number"
-            name="size"
-            placeholder="Size"
-            className="shadow appearance-none border rounded w-full focus:shadow-outline"
-            defaultValue={house?.size}
-          ></input>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Type</label>
-          <input
-            type="string"
-            name="type"
-            placeholder="Type"
-            className="shadow appearance-none border rounded w-full focus:shadow-outline"
-            defaultValue={house?.type}
-          ></input>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">ZipCode</label>
-          <input
-            type="string"
-            name="zipCode"
-            placeholder="ZipCode"
-            className="shadow appearance-none border rounded w-full focus:shadow-outline"
-            defaultValue={house?.zipCode}
-          ></input>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Rooms</label>
-          <input
-            type="number"
-            name="rooms"
-            placeholder="Rooms"
-            className="shadow appearance-none border rounded w-full focus:shadow-outline"
-            defaultValue={house?.rooms}
-          ></input>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">
-            Bathrooms
+            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+              <svg
+                className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 16"
+              >
+                <path
+                  stroke="currentColor"
+                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                />
+              </svg>
+              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <span className="font-semibold">Click to upload</span> or drag
+                and drop
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                SVG, PNG, JPG or GIF (MAX. 800x400px)
+              </p>
+            </div>
+            <input
+              id="image"
+              name="image"
+              accept="image/png, image/jpeg"
+              type="file"
+              className="hidden"
+              onChange={handleChangeImage}
+            />
           </label>
-          <input
-            type="number"
-            name="bathrooms"
-            placeholder="Bathrooms"
-            className="shadow appearance-none border rounded w-full focus:shadow-outline"
-            defaultValue={house?.bathrooms}
-          ></input>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Parking</label>
-          <input
-            type="boolean"
-            name="parking"
-            placeholder="Parking"
-            className="shadow appearance-none border rounded w-full focus:shadow-outline"
-            defaultValue={house?.parking}
-          ></input>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Price</label>
-          <input
-            type="number"
-            name="price"
-            placeholder="Price"
-            className="shadow appearance-none border rounded w-full focus:shadow-outline"
-            defaultValue={house?.price}
-          ></input>
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Code</label>
-          <input
-            type="string"
-            name="code"
-            placeholder="Code"
-            className="shadow appearance-none border rounded w-full focus:shadow-outline"
-            defaultValue={house?.code}
-          ></input>
-        </div>
-        <div className="py-4">
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-700 rounded text-blue-50 font-bold py-2 px-4"
-          >
-            Save
-          </button>
-        </div>
-      </form>
-    </div>
+          <div className="py-4">
+            <button
+              type="submit"
+              className="bg-gray-700 hover:bg-gray-800 hover:text-green-200 rounded text-blue-100 font-bold py-2 px-4"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
     </body>
   );
 }

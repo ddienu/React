@@ -1,19 +1,17 @@
 
 import { Link } from "react-router-dom";
-import { useRemoveUserMutation, useGetUsersQuery } from "../../features/api/apiSlice";
 import Swal from "sweetalert2";
-import { useGetHousesQuery } from "../../features/api/apiHouseSlice";
+import { useGetHousesQuery, useRemoveHouseMutation } from "../../features/api/apiHouseSlice";
 export default function HouseList() {
   /*Obtiene el estado de una variable con Redux
   const users = useSelector((state) => state.users);
   */
  const { data: houses, isLoading, isError, error} = useGetHousesQuery();
- console.log(houses);
-//  const [deleteUser] = useRemoveUserMutation();
- const handleDelete = (user) => {
-  // console.log(user);
+ const [deleteHouse] = useRemoveHouseMutation();
+
+ const handleDelete = (house) => {
   Swal.fire({
-    title: `¿Estás seguro de que deseas eliminar al usuario ${user.name} ${user.lastname}`,
+    title: `¿Estás seguro de que deseas eliminar la casa con dirección ${house.address}, ${house.city}, ${house.state}?`,
     text: "¡Esta acción no se puede revertir!",
     icon: "warning",
     showCancelButton: true,
@@ -22,7 +20,7 @@ export default function HouseList() {
     confirmButtonText: "Estoy seguro"
   }).then((result) => {
     if (result.isConfirmed) {
-        deleteUser(user._id);
+        deleteHouse(house._id);
       }
     });
  }
@@ -39,8 +37,8 @@ export default function HouseList() {
 //  const users = data;
   return (
     <>
-      <div className="overflow-x-auto flex-justify-center px-5 py-5 h-screen">
-        <table className="table-auto divide-y border w-full">
+      <div className="overflow-x-auto flex-justify-center px-5 py-5 h-screen w-full">
+        <table className="table-auto divide-y border">
           <thead className="bg-gray-800 text-white">
             <th className="px-6 py-3 text-center">
                 Address
@@ -119,26 +117,20 @@ export default function HouseList() {
                   {house.code}
                 </td>
                 <td className="px-6 py-3 bg-gray-200 text-center">
-                  {house?.image}
-                </td>
-                {/* <td className="px-6 py-3 bg-gray-200 text-center border border-black">
                   <img
                     style={{
                       width: 50,
                       height: 50,
                     }}
-                    src={`http://localhost:9090/${user.avatar}`}
-                    alt="User's avatar"
+                    src={`http://localhost:9090/${house.image}`}
+                    alt="House's image"
                     className="mx-auto transition-transform duration-150 transform hover:scale-110"
                   />
-                </td> */}
+                </td>
                 <td className="py-3 bg-gray-200 text-center">
                   <div className="inline-flex rounded-md" role="group">
-                    {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px- rounded-full w-20">
-                      <Link to={`/user/${user._id}`}>Edit</Link>
-                    </button> */}
-                    {/* <Link
-                      to={`/user/${user._id}`}
+                    <Link
+                      to={`/house/${house._id}`}
                       className="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-l-lg font-medium px-4 py-2 inline-flex space-x-1 items-center hover:shadow-lg hover:shadow-blue-800/50"
                     >
                       <span>
@@ -158,9 +150,9 @@ export default function HouseList() {
                         </svg>
                       </span>
                       <span className="hidden md:inline-block">Edit</span>
-                    </Link> */}
-                    {/* <button onClick={() => {
-                      handleDelete(user)
+                    </Link>
+                    <button onClick={() => {
+                      handleDelete(house)
                     }}
                     type="button"
                     className="text-slate-800 hover:text-red-500 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center hover:shadow-lg hover:shadow-red-500/20">
@@ -181,7 +173,7 @@ export default function HouseList() {
                         </svg>
                       </span>
                       <span className="hidden md:inline-block">Delete</span>
-                    </button> */}
+                    </button>
                   </div>
                 </td>
               </tr>

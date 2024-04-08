@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
 import "./App.css";
 // import Example from "./components/example";
 import UserList from "./components/user/UserList";
@@ -13,10 +13,10 @@ import { useEffect } from "react";
 import { loginSuccess } from "./features/authSlice";
 import PrivateRoute from "./components/PrivateRoute";
 import ChangePassword from "./components/Auth/ChangePassword";
-import HouseForm from "./components/house/HouseForm";
 import HouseFormCreate from "./components/house/HouseFormCreate";
 import Chat from "./components/chat/Chat";
 import HouseList from "./components/house/HouseList";
+import houseFormEdit from "./components/house/HouseFormEdit";
 
 
 
@@ -45,6 +45,7 @@ function App() {
           {/* Rutas de casas */}
           <Route path="/create-house" element={<PrivateRoute Component={HouseFormCreate }/>}/>
           <Route path="/houses" element={<PrivateRoute Component={HouseList}/>}/>
+          <Route path="/house/:id" element={<PrivateRoute Component={houseFormEdit}/>}></Route>
 
           {/* Rutas del chat */}
           <Route path="/chat" element={<PrivateRoute Component={Chat}/>}/>

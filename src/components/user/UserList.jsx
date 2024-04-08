@@ -11,7 +11,7 @@ export default function UserList() {
  const handleDelete = (user) => {
   // console.log(user);
   Swal.fire({
-    title: `¿Estás seguro de que deseas eliminar al usuario ${user.name} ${user.lastname}`,
+    title: `¿Estás seguro de que deseas eliminar al usuario ${user.name} ${user.lastname}?`,
     text: "¡Esta acción no se puede revertir!",
     icon: "warning",
     showCancelButton: true,
@@ -87,9 +87,6 @@ export default function UserList() {
                 </td>
                 <td className="py-3 bg-gray-200 text-center">
                   <div className="inline-flex rounded-md" role="group">
-                    {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px- rounded-full w-20">
-                      <Link to={`/user/${user._id}`}>Edit</Link>
-                    </button> */}
                     <Link
                       to={`/user/${user._id}`}
                       className="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-l-lg font-medium px-4 py-2 inline-flex space-x-1 items-center hover:shadow-lg hover:shadow-blue-800/50"

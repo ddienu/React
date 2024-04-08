@@ -45,13 +45,21 @@ export const apiHouseSlice = createApi({
       }),
       invalidatesTags: ["Houses", "House"],
     }),
-    removeUser: builder.mutation({
+    removeHouse: builder.mutation({
       query: (_id) => ({
         url: `/house/${_id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Houses"],
     }),
+    uploadImage : builder.mutation({
+      query : (body) => ({
+        url: `/upload/${body._id}/house`,
+        method: "POST",
+        body: body.file,
+      }),
+      invalidatesTags: ["Houses"],
+    })
   }),
 });
 
@@ -61,4 +69,5 @@ export const {
     useCreateHouseMutation,
     useUpdateHouseMutation,
     useRemoveHouseMutation,
+    useUploadImageMutation,
   } = apiHouseSlice;

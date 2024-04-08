@@ -15,6 +15,7 @@ export default function UserFormCreate(){
       setFile(e.target.files);
     }
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newUser = {
@@ -22,15 +23,12 @@ export default function UserFormCreate(){
           lastname: e.target.lastname.value,
           email: e.target.email.value,
           userId: e.target.identification.value,
-          password: e.target.password.value,
+          password: e.target.password.value
         };
-        console.log(e.target.avatar.value);
+        console.log(newUser);
         try {
-          const response = await createUser(newUser);
-          // console.log(response.data.status);
-    
+          const response = await createUser(newUser);    
           if (response.data.status == "error") {
-            // console.log(response.data.message);
             Swal.fire({
               icon: "error",
               title: response.data.status.toUpperCase(),
@@ -40,6 +38,7 @@ export default function UserFormCreate(){
 
             if(file){
               const formData = new FormData();
+              console.log(formData);
               formData.append("file", file[0]);
               uploadAvatar({_id : response.data._id, file: formData});
             }
