@@ -122,7 +122,7 @@ export default function HouseList() {
                       width: 50,
                       height: 50,
                     }}
-                    src={`http://localhost:9090/${house.image}`}
+                    src={`https://restapinodejs.vercel.app/${house.image}`}
                     alt="House's image"
                     className="mx-auto transition-transform duration-150 transform hover:scale-110"
                   />
